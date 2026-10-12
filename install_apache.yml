@@ -1,0 +1,24 @@
+---
+
+
+- name: My first ansible playbook
+  hosts: all
+  become: yes
+
+
+  tasks:
+    - name: update repository index 
+      ansible.builtin.dnf:
+        update_cache: yes
+
+           
+    - name: install apache package (httpd)
+      ansible.builtin.dnf:
+        name: httpd
+        state: latest
+
+
+    - name: add php support for apache
+      ansible.builtin.dnf:
+        name: php
+        state: latest
