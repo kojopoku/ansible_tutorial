@@ -8,41 +8,22 @@
 
 
   tasks:
-  - name: update repository index 
+  - name: install apache (httpd) and php packages
     ansible.builtin.dnf:
+      name: 
+        - httpd
+        - php
+      state: latest
       update_cache: yes
     when: ansible_facts['os_family'] == "RedHat"
-    
 
-  - name: install apache package (httpd)
-    ansible.builtin.dnf:
-      name: httpd
-      state: latest
-    when: ansible_facts['os_family'] == "RedHat"
-
-
-  - name: add php support for apache
-    ansible.builtin.dnf:
-      name: php
-      state: latest
-    when: ansible_facts['os_family'] == "RedHat"
-
-
-  - name: update repository index
-    ansible.builtin.apt:
-      update_cache: yes
-    when: ansible_facts['os_family']  == "Debian"    
 
 
   - name: install apache2 and libapache2-mod-php
     ansible.builtin.apt:
-      name: apache2
+      name: 
+        - apache2
+        - libapache2-mod-php
       state: latest
+      update_cache: yes
     when: ansible_facts['os_family'] == "Debian"
-
-
-  - name: install libapache2-mod-php
-    ansible.builtin.apt:
-      name: libapache2-mod-php
-      state: latest
-    when: ansible_facts['os_family']  == "Debian"
